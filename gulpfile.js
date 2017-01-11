@@ -25,8 +25,6 @@ var plumber = require('gulp-plumber');
 var clean = require('gulp-clean');
 // sourcemaps
 var sourcemaps = require('gulp-sourcemaps');
-// ejs 插件
-var ejs = require('gulp-ejs');
 var minifyHTML = require('gulp-minify-html');
 // 增量更新包
 var newer = require('gulp-newer');
@@ -166,10 +164,6 @@ function initTask() {
     gulp.task('html', function () {
         gulpBuild(
             gulp.src(srcDirHtml),
-            // newer({
-            //     dest: buildDir
-            // }),
-            ejs(ejsParam),
             assetRev(assetRevOpt),
             gulpIfProduction(minifyHTML())
         );
@@ -192,7 +186,6 @@ function initTask() {
         gulp.watch(srcDirLess, ['less', 'html']);
         gulp.watch(srcDirCss, ['css-mini', 'html']);
         gulp.watch(srcDirImg, ['img-mini']);
-        gulp.watch(srcDirHtml.concat([srcDir + '/**/*.ejs']), ['html']);
         gulp.watch(srcDirCopy, ['copy']);
     });
 
